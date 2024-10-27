@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubtest-deployment
+spec:
+  replicas: 2  # Change this to 2 to create two pods
+  selector:
+    matchLabels:
+      app: kubtest
+  template:
+    metadata:
+      labels:
+        app: kubtest
+    spec:
+      containers:
+      - name: kubtest-container
+        image: roddakmr1996/kub-image  # Docker Hub image
+        imagePullPolicy: IfNotPresent   # Allow pulling the image
+        ports:
+        - containerPort: 8080  # Ensure this matches your application's listening port

@@ -1,0 +1,22 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubtest-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+      - kubtest.local  # Replace with a custom local domain
+    secretName: kubtest-tlss
+  rules:
+  - host: kubtest.local  # Match the custom domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubtest-service  # Name of your service
+            port:
+              number: 80
